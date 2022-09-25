@@ -1,0 +1,7 @@
+.readPost{
+    cursor: pointer;
+}
+
+.readPost:hover{
+    color:rgb(20, 208, 20)
+}
