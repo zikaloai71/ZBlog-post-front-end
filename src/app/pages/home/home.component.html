@@ -3,7 +3,26 @@
 </div>
 
 <ng-template #data>
+    <h3 class="container-fluid mt-3" >categories</h3>
+    <div class="d-flex container-fluid mt-2 justify-content-between">
+    <div class="d-flex w-20" >
+    <button class="border border-0 bg-success text-white py-2 rounded-4 mx-1 hoverCategory" (click)="searchBlog()">All</button>
+    <button class="border border-0 bg-success text-white rounded-4 mx-1 hoverCategory" (click)="searchBlog('science')">science</button>
+
+    <button class="border border-0 rounded-4  bg-success text-white mx-1 hoverCategory" (click)="searchBlog('programming')">programming</button>
+    <button class="border border-0 rounded-4 bg-success text-white  mx-1 hoverCategory" (click)="searchBlog('social')">social</button>
+    <button class="border border-0 rounded-4 bg-success text-white mx-1 hoverCategory" (click)="searchBlog('political')">political</button>
+    <button class="border border-0 rounded-4 mx-1 bg-success text-white  hoverCategory" (click)="searchBlog('finance')">finance</button>
+    <button class="border border-0 rounded-4 mx-1 bg-success text-white  hoverCategory" (click)="searchBlog('other')">other</button>
+</div>  
+    <form class="d-flex w-60" role="search">
+        <input class="form-control  mx-1 " type="search" name="search" placeholder="Search for a blog" aria-label="Search" [(ngModel)]="searchedText" >
+        <button class="btn btn-success " type="submit" (click)="searchBlog()"><i class="fa fa-search" aria-hidden="true"></i>
+        </button>
+    </form>
+  </div>
     <div class="row mx-0 my-5">
+
         <div class="col-7 " *ngFor="let post of posts">
             <div class="card border border-2 border-success my-1">
                 <div class="card-body">
@@ -12,6 +31,7 @@
                    
                     <p class="mt-2">written by <i class="fa fa-user-circle" aria-hidden="true"></i>
                         {{post.author}}
+                        {{post.category}}
                     </p>
                     <div class="row mt-2">
                     <p class="col-2">
