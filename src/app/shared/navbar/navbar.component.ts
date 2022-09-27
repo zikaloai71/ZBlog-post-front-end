@@ -9,12 +9,17 @@ import { GlobalService } from 'src/app/services/global.service';
 
 export class NavbarComponent implements OnInit {
 
+  user:any
   
-  post:any=[]
   
   constructor(public auth :AuthService , private global : GlobalService) { 
     let token = localStorage.getItem('token')
-    if(token) this.auth.loginFlag=true
+    if(token){ 
+      this.auth.loginFlag=true
+      this.auth.authMe().subscribe(data=>{
+        this.user=data
+      })
+    }
    }
 
   ngOnInit(): void {
@@ -22,8 +27,10 @@ export class NavbarComponent implements OnInit {
   }
 
   handleLogOut(){
-    localStorage.removeItem('token')
+   
     this.auth.loginFlag=false
+    this.auth.logOut().subscribe()
+    localStorage.removeItem('token')
   }
 
 

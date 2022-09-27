@@ -18,5 +18,25 @@ export class AuthService {
   logIn(obj:any):Observable <any>{
     return this.http.post(`${this.urlPath}user/logIn`, obj)
   }
+  
+  authMe():Observable <any> {
+    return this.http.get(`${this.urlPath}user/me`)
+  }
+  
+  logOut():Observable <any>{
+    return this.http.post(`${this.urlPath}user/logOut`, null)
+  }
+  myPosts():Observable <any>{
+    return this.http.get(`${this.urlPath}post/myPosts`)
+  }
+  
+  addPost(obj:any):Observable <any>{
+    return this.http.post(`${this.urlPath}post/addPost`,obj)
+  }
+
+  deletePost(id:any):Observable <any>{
+    return this.http.delete(`${this.urlPath}post/myPosts/deletePost/${id}`)
+  }
+
 
 }

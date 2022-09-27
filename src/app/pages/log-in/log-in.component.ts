@@ -17,8 +17,10 @@ export class LogInComponent implements OnInit {
     password:'',
   }
   errorMsg : string = ''
-
-  constructor(private auth : AuthService , private toastr : ToastrService, private router:Router ) { }
+  user:any
+  constructor(private auth : AuthService , private toastr : ToastrService, private router:Router ) {
+   
+   }
 
   ngOnInit(): void {
   }
@@ -28,7 +30,8 @@ export class LogInComponent implements OnInit {
       this.auth.logIn(this.userData).subscribe(res=>{
          if(res.apiStatus){
           localStorage.setItem('token',res.data.token)
-          this.toastr.success('logged in successfully')
+         
+          this.toastr.success(`welcome ${res.data.userData.name}`)
           this.router.navigateByUrl('')
           this.auth.loginFlag=true;
          }

@@ -1,1 +1,11 @@
-<p>profile works!</p>
+<div class="container">
+<p class="text-center fs-3">welcome {{user?.name}}</p>
+<button class="btn btn-primary" routerLink="/addPost" >add Post</button>
+<div *ngFor="let post of myPosts; let i = index">
+    <div>{{post?.title}}</div>
+    <div>{{post?.snippet}}</div>
+    <button>edit</button>
+    <button (click)="handlePostDelete(post._id,i)">delete</button>
+</div>
+
+</div>
