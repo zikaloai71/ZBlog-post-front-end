@@ -26,8 +26,7 @@ export class SignUpComponent implements OnInit {
    if(signUp.valid){
 
     this.auth.signUp(this.userData).subscribe(res=>{
-         this.router.navigateByUrl('user/login')
-         console.log(res)
+         this.router.navigateByUrl('user/login')      
     },(err)=>{
      console.log(err)
     })

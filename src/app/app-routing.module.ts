@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddPostComponent } from './pages/add-post/add-post.component';
+import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 import { EditPostComponent } from './pages/edit-post/edit-post.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -20,7 +21,8 @@ const routes: Routes = [
     {path:"login",component:LogInComponent},
     {path:"signup", component:SignUpComponent},
     {path:"profile/:id",component:ProfileComponent},
-    {path:"editProfile/:id",component:EditProfileComponent}
+    {path:"editProfile/:id",component:EditProfileComponent},
+    {path:"changePassword/:id" , component: ChangePasswordComponent}
   ]}
 ];
 

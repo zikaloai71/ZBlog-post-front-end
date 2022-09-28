@@ -38,5 +38,36 @@ export class AuthService {
     return this.http.delete(`${this.urlPath}post/myPosts/deletePost/${id}`)
   }
 
+  editPost(obj:any,id:any):Observable <any>{
+    return this.http.patch(`${this.urlPath}post/myPosts/editPost/${id}`,obj)
+  }
+
+  editProfile(obj:any): Observable <any>{
+    return this.http.patch(`${this.urlPath}user/me/editProfile`,obj)
+  }
+  profileImage(obj:any) : Observable <any>{
+    return this.http.post(`${this.urlPath}user/me/profileImage`, obj)
+  }
+
+  changePassword(obj:any): Observable <any>{
+    return this.http.patch(`${this.urlPath}user/me/editPassword`,obj)
+  }
+  
+  toogleLike(id:any) : Observable <any> {
+    return this.http.post(`${this.urlPath}post/readPost/toggleLike/${id}`, null)
+  }
+ 
+  addComment(obj:any,id:any) : Observable <any> {
+    return this.http.post(`${this.urlPath}post/readPost/addComment/${id}`, obj)
+  }
+
+  deleteComment(id:any) : Observable <any> {
+    return this.http.delete(`${this.urlPath}post/readPost/deleteComment/${id}`)
+  }
+
+  editComment(obj:any,id:any) : Observable <any> {
+    return this.http.patch(`${this.urlPath}post/readPost/editComment/${id}`, obj)
+  }
+
 
 }

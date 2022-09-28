@@ -1,11 +1,38 @@
 <div class="container">
-<p class="text-center fs-3">welcome {{user?.name}}</p>
-<button class="btn btn-primary" routerLink="/addPost" >add Post</button>
-<div *ngFor="let post of myPosts; let i = index">
-    <div>{{post?.title}}</div>
-    <div>{{post?.snippet}}</div>
-    <button>edit</button>
+    <p class="text-center fs-3">welcome {{user?.name}}</p>
+    <div class="row align-items-center">
+    <div class="cont mb-3">
+        <img *ngIf="user?.image" src="http://localhost:3000/{{user?.image.replace('public','')}}"
+            class=" border border-3 border-dark rounded-5 " alt="">
+
+        <img *ngIf="!user?.image" src="assets/images/user-profile-icon.webp" class="col-12">
+
+    <button class="button" (click)="uploadImage()">upload new image</button>
+
+    </div>
+    <form *ngIf="imgUploadFlag" #uploadImage="ngForm" (ngSubmit)="handleUploadImageForm()" class="col-6">
+        <div class="mt-3">
+            <label for="formFile" class="form-label">upload Profile image</label>
+             <input class="form-control mb-3" type="file" id="formFile"  name="image" (change)="handleUploadImage($event)">
+          </div>
+          <button class="btn btn-primary w-50">upload new image</button>
+    </form>
+    </div>
+
+    <button class="btn btn-primary mx-3" routerLink="/addPost">add Post</button>
+
+    <button class="btn btn-primary mx-3" routerLink="/user/editProfile/{{user?._id}}">edit profile</button>
+
+    
+    <button class="btn btn-primary mx-3" routerLink="/user/changePassword/{{user?._id}}">change my Password</button>
+
+    <div *ngFor="let post of myPosts; let i = index">
+        <div>{{post?.title}}</div>
+        <div>{{post?.snippet}}</div>
+
+        <button routerLink="/editPost/{{post._id}}"> edit</button>
+
     <button (click)="handlePostDelete(post._id,i)">delete</button>
-</div>
+    </div>
 
 </div>

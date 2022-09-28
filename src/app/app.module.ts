@@ -21,6 +21,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { AddPostComponent } from './pages/add-post/add-post.component';
 import { EditPostComponent } from './pages/edit-post/edit-post.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
+import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { EditProfileComponent } from './pages/edit-profile/edit-profile.componen
     LoadingComponentComponent,
     AddPostComponent,
     EditPostComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

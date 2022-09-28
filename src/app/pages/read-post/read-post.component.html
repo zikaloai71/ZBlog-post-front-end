@@ -8,19 +8,41 @@
         <div class="col-7 ">
             <div class="card border border-2 border-success my-1">
                 <div class="card-body">
-                    <h2>{{post.title}}</h2>
+                    <h2>{{post?.title}}</h2>
                     <p class="mt-2">written by <i class="fa fa-user-circle" aria-hidden="true"></i>
-                        {{post.author}}
+                        {{post?.author}}
                     </p>
                     <div class="row mt-2">
                     <p class="col-2">
-                 <i class="fa-regular fa-heart mx-1"></i>{{post.likes.length}}
+                 <i class="fa-regular fa-heart mx-1" (click)="likePost($event)"></i>{{post?.likes?.length}}
                     </p>
-                    <p class="col-2"><i class="fa-regular fa-message mx-1"></i>{{post.comments.length}}</p>
+                    <p class="col-2"><i class="fa-regular fa-message mx-1"></i>{{comments.length}}</p>
                  </div>
                 </div>
             </div>
         </div>
-        <p class="mt-2">{{post.content}}</p>
     </div>
 </ng-template>
+<p class="mt-2 container">{{post?.content}}</p>
+
+<form class="container" [formGroup]="addCommentForm" (ngSubmit)="addComment()">
+    <div class="mb-3">
+      <input type="text" class="form-control" placeholder="add your thoughts here"  formControlName="conComm" required >
+    </div>
+    <button type="submit" class="btn btn-primary">add comment</button>
+</form>
+
+<div *ngFor="let comment of comments; let i = index">
+    <li>{{comment.conComm}}</li>
+    <li>{{comment.cuName}}</li>
+  <div *ngIf="comment.cuId==userId">  
+    <button (click)="toggleEditCommentForm()">edit</button>
+    <button (click)="handleCommentDelete(comment._id,i)">delete</button>
+    <form class="container" *ngIf="editCommentFlag" [formGroup]="editCommentForm" (ngSubmit)="handleCommentEdit(comment._id)">
+        <div class="mb-3">
+          <input type="text" class="form-control" placeholder="add your thoughts here"  formControlName="conComm" required >
+        </div>
+        <button type="submit" class="btn btn-primary">edit comment</button>
+    </form>
+  </div>
+</div>

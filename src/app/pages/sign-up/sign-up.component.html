@@ -3,7 +3,7 @@
 <form class="row" #signUp="ngForm" (ngSubmit)="handleSignUp(signUp)">
    
     <div class="col-12 col-md-6">
-        <input type="text" name="name" placeholder="enter your name" class="form-control" [(ngModel)]="userData.name" #name="ngModel" required minlength="3" maxlength="10" pattern="^[a-zA-z]+$">
+        <input type="text" name="name" placeholder="enter your name" class="form-control" [(ngModel)]="userData.name" #name="ngModel" required minlength="3" maxlength="25">
 
         <div class="alert alert-danger" *ngIf="(signUp.submitted || name.dirty) && name.invalid" >
           <div *ngIf="name.errors?.['required']"> name is required</div>
