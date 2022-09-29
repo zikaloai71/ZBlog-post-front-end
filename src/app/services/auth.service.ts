@@ -69,5 +69,13 @@ export class AuthService {
     return this.http.patch(`${this.urlPath}post/readPost/editComment/${id}`, obj)
   }
 
-
+  savePost(id:any) : Observable <any> {
+    return this.http.post(`${this.urlPath}user/me/savedPosts/${id}`, null)
+  }
+  deleteSavedPost(id:any) : Observable <any>{
+    return this.http.delete(`${this.urlPath}user/me/deletePost/${id}`)
+  }
+  logOutAll() : Observable <any>{
+    return this.http.post(`${this.urlPath}user/logOUtAll`,null)
+  }
 }

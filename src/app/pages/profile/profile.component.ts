@@ -15,18 +15,19 @@ export class ProfileComponent implements OnInit {
  img:any
  imgUploadFlag = false;
  userId:any
+ savedPosts:any
 
   constructor( public auth : AuthService ,private router:Router, private activated:ActivatedRoute , private toastr : ToastrService) { 
     this.userId = this.activated.snapshot.paramMap.get('id')
     this.auth.authMe().subscribe(data=>{
       this.user=data
+      this.savedPosts= data.savedPosts
     })
     this.auth.myPosts().subscribe(data=>{
       this.myPosts=data;
       this.myPosts=this.myPosts.data
      
     })
-
 
   }
 
@@ -55,6 +56,20 @@ export class ProfileComponent implements OnInit {
   handlePostDelete(id:any,index:any){
     this.auth.deletePost(id).subscribe()
     this.myPosts.splice(index,1)
+  }
+
+  deleteSavedPost(id:any){
+    this.auth.deleteSavedPost(id).subscribe(res=>{
+      this.savedPosts=res.data.savedPosts;
+      this.toastr.success("saved post deleted")
+    })
+  }
+
+  logOutAll(){
+    this.auth.loginFlag=false
+    this.auth.logOutAll().subscribe()
+    localStorage.removeItem('token')
+    this.router.navigateByUrl('/user/login')
   }
 
 }

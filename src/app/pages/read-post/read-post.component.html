@@ -14,13 +14,21 @@
                     </p>
                     <div class="row mt-2">
                     <p class="col-2">
-                 <i class="fa-regular fa-heart mx-1" (click)="likePost($event)"></i>{{post?.likes?.length}}
+                 <i class="fa-regular fa-heart mx-1"
+                 [ngStyle]="{'color': likeFlag ? 'red' : 'black' }"
+                  (click)="likePost($event)"></i>{{post?.likes?.length}}
                     </p>
                     <p class="col-2"><i class="fa-regular fa-message mx-1"></i>{{comments.length}}</p>
                  </div>
                 </div>
             </div>
         </div>
+        <div class="col-3">
+            <i class="fa-solid fa-bookmark fs-4"
+            [ngStyle]="{'color': saveFlag ? '#FAB005' : 'black' }"
+             (click)="savePost(post._id)"></i>
+        </div>
+
     </div>
 </ng-template>
 <p class="mt-2 container">{{post?.content}}</p>

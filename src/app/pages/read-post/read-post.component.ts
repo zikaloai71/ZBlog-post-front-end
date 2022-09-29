@@ -19,6 +19,10 @@ export class ReadPostComponent implements OnInit {
   isSubmit = false;
   userId: any;
   editCommentFlag = false;
+  savedPosts:any;
+  saveFlag=false;
+  likedPosts:any;
+  likeFlag=false;
 
   addCommentForm = new FormGroup({
     conComm: new FormControl("", [Validators.required]),
@@ -36,6 +40,25 @@ export class ReadPostComponent implements OnInit {
   ) {
     this.auth.authMe().subscribe((res) => {
       this.userId = res._id;
+      this.savedPosts =res.savedPosts
+      this.likedPosts = res.likedPosts
+
+      const index = this.savedPosts.findIndex((savePost:any)=>savePost.postId==this.postId)
+
+      
+      if(index>=0){
+      this.saveFlag= true;
+      }
+      else{
+       this.saveFlag = false;
+      }
+      const i = this.likedPosts.findIndex((savePost:any)=>savePost.postId==this.postId)
+      if(i>=0){
+      this.likeFlag= true;
+      }
+      else{
+       this.likeFlag = false;
+      }
     });
   }
 
@@ -107,4 +130,13 @@ export class ReadPostComponent implements OnInit {
     });
     this.comments.splice(i, 1);
   }
+
+  savePost(id:any){
+    this.auth.savePost(id).subscribe(res=>{
+       this.toastr.success(`added to saved posts`);
+       this.saveFlag=true;
+    })
+  }
+
+ 
 }

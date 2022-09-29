@@ -26,6 +26,8 @@
     
     <button class="btn btn-primary mx-3" routerLink="/user/changePassword/{{user?._id}}">change my Password</button>
 
+    <button class="btn btn-primary mx-3" (click)="logOutAll()">log out from all devices</button>
+
     <div *ngFor="let post of myPosts; let i = index">
         <div>{{post?.title}}</div>
         <div>{{post?.snippet}}</div>
@@ -35,4 +37,15 @@
     <button (click)="handlePostDelete(post._id,i)">delete</button>
     </div>
 
+</div>
+
+<div>
+    <h1>saved posts</h1>
+    <div *ngFor="let savedPost of savedPosts">
+     <h5>{{savedPost.title}}</h5>
+     <p>{{savedPost.snippet}}</p>
+     <p>written by {{savedPost.author}}</p>
+     <button (click)="deleteSavedPost(savedPost._id)"> delete </button>
+     <div class="text-end fs-3" routerLink="/readPost/{{savedPost.postId}}"> Continue . . .</div>
+    </div>
 </div>

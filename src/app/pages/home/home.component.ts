@@ -16,9 +16,13 @@ export class HomeComponent implements OnInit {
   likedFlag: any;
 
   constructor(private global: GlobalService, private auth: AuthService) {
-    this.auth.authMe().subscribe((res) => {
-      this.likedPosts = res.likedPosts;
-    });
+    let token = localStorage.getItem('token')
+    if(token){
+      this.auth.authMe().subscribe((res) => {
+        this.likedPosts = res.likedPosts;
+      });
+    }
+   
   }
 
   ngOnInit(): void {
