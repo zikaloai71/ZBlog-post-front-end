@@ -27,7 +27,8 @@
     <button class="btn btn-primary mx-3" routerLink="/user/changePassword/{{user?._id}}">change my Password</button>
 
     <button class="btn btn-primary mx-3" (click)="logOutAll()">log out from all devices</button>
-
+    <button class="btn btn-primary mx-3" (click)="deleteAccount()">delete your account</button>
+    
     <div *ngFor="let post of myPosts; let i = index">
         <div>{{post?.title}}</div>
         <div>{{post?.snippet}}</div>

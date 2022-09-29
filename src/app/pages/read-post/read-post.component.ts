@@ -3,7 +3,6 @@ import { ActivatedRoute } from "@angular/router";
 import { AuthService } from "src/app/services/auth.service";
 import { GlobalService } from "src/app/services/global.service";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 
 @Component({
@@ -14,6 +13,8 @@ import { ToastrService } from "ngx-toastr";
 export class ReadPostComponent implements OnInit {
   postId: any;
   post: any;
+  posts:any;
+  ind:any;
   loadingComp: boolean = true;
   comments: any;
   isSubmit = false;
@@ -23,7 +24,7 @@ export class ReadPostComponent implements OnInit {
   saveFlag=false;
   likedPosts:any;
   likeFlag=false;
-
+  
   addCommentForm = new FormGroup({
     conComm: new FormControl("", [Validators.required]),
   });
@@ -42,7 +43,7 @@ export class ReadPostComponent implements OnInit {
       this.userId = res._id;
       this.savedPosts =res.savedPosts
       this.likedPosts = res.likedPosts
-
+  
       const index = this.savedPosts.findIndex((savePost:any)=>savePost.postId==this.postId)
 
       
@@ -71,18 +72,26 @@ export class ReadPostComponent implements OnInit {
 
   ngOnInit(): void {
     this.postId = this.activated.snapshot.paramMap.get("id");
-    this.global.getSinglePost(this.postId).subscribe(
-      (post) => {
-        this.post = post.data;
-        this.comments = post.data.comments;
-      },
-      (err) => {
-        console.log(err);
-      },
-      () => {
-        this.loadingComp = false;
+    this.global.getPosts().subscribe(res=>{
+      this.posts = res
+      this.ind= this.posts.data.findIndex((p:any)=>p._id == this.postId)
+      if(this.ind>=0){
+        this.global.getSinglePost(this.postId).subscribe(
+          (post) => {
+            this.post = post.data;
+            this.comments = post.data.comments;
+          },
+          (err) => {
+            console.log(err);
+          },
+          () => {
+            this.loadingComp = false;
+          }
+        );
       }
-    );
+    })
+ 
+
   }
   likePost(ev: any) {
     this.auth.toogleLike(this.postId).subscribe((res) => {

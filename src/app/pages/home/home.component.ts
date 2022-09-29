@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   searchedText: string = "";
   likedPosts: any;
   likedFlag: any;
+  trends:any
 
   constructor(private global: GlobalService, private auth: AuthService) {
     let token = localStorage.getItem('token')
@@ -22,15 +23,17 @@ export class HomeComponent implements OnInit {
         this.likedPosts = res.likedPosts;
       });
     }
-   
+    
   }
 
   ngOnInit(): void {
+   
     this.global.getPosts().subscribe(
       (data) => {
         this.postsData = data;
         this.postsData = this.postsData.data;
         this.posts = this.postsData;
+        this.trends= this.postsData;
         this.postsData.forEach((element: any) => {
           element.flag = false;
           this.determineLikedPosts(element);
@@ -44,6 +47,7 @@ export class HomeComponent implements OnInit {
         this.loadingComp = false;
       }
     );
+   
   }
 
   searchBlog(args?: string) {
@@ -83,5 +87,12 @@ export class HomeComponent implements OnInit {
         break;
       }
     }
+  }
+  trendPosts(){
+    this.trends = this.trends.sort(function(a:any,b:any){
+      return b.likes.length - a.likes.length
+    });
+    this.trends=this.trends.slice(0,10) 
+    return this.trends
   }
 }

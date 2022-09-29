@@ -72,4 +72,11 @@ export class ProfileComponent implements OnInit {
     this.router.navigateByUrl('/user/login')
   }
 
+  deleteAccount(){
+    this.auth.loginFlag=false
+    this.auth.deleteAccount().subscribe()
+    localStorage.removeItem('token')
+    this.router.navigateByUrl('/user/signup')
+  }
+
 }

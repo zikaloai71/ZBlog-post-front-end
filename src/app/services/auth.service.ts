@@ -78,4 +78,7 @@ export class AuthService {
   logOutAll() : Observable <any>{
     return this.http.post(`${this.urlPath}user/logOUtAll`,null)
   }
+  deleteAccount(){
+    return this.http.delete(`${this.urlPath}user/me/deleteAccount`)
+  }
 }
