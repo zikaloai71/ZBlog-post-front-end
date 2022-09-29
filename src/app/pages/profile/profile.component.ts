@@ -16,6 +16,8 @@ export class ProfileComponent implements OnInit {
  imgUploadFlag = false;
  userId:any
  savedPosts:any
+ sideBarFlag = true;
+ profileContentFlag = true
 
   constructor( public auth : AuthService ,private router:Router, private activated:ActivatedRoute , private toastr : ToastrService) { 
     this.userId = this.activated.snapshot.paramMap.get('id')
@@ -34,6 +36,16 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
  
   }
+  toggleSideBar(){
+    this.sideBarFlag=!this.sideBarFlag
+  }
+  myPostsShow(){
+    this.profileContentFlag=true;
+  }
+  mySavedPostsShow(){
+    this.profileContentFlag=false;
+  }
+
   uploadImage(){
     return this.imgUploadFlag= !this.imgUploadFlag
   }
