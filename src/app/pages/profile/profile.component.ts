@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit {
   }
 
   uploadImage(){
-    return this.imgUploadFlag= !this.imgUploadFlag
+    this.imgUploadFlag= !this.imgUploadFlag
   }
 
   handleUploadImage(ev : any){
@@ -59,7 +59,6 @@ export class ProfileComponent implements OnInit {
     let formData = new FormData()
     formData.append('img' , this.img)
     this.auth.profileImage(formData).subscribe(res=>{
-        console.log(res)
         this.uploadImage()
         window.location.reload();
       })

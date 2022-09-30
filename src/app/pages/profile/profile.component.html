@@ -1,5 +1,6 @@
 
 <button class="toggleSideBar" (click)="toggleSideBar()"><i class="fa-solid fa-bars"></i></button>
+<section class="profile">
 
 <nav
 id="sidebarMenu"
@@ -17,6 +18,14 @@ class="d-lg-block sidebar  bg-success"
     <button class="button" (click)="uploadImage()">upload new image</button>
 
     </div>
+
+    <form *ngIf="imgUploadFlag" #uploadImage="ngForm" (ngSubmit)="handleUploadImageForm()" class="col-6 mt-4">
+        <div>
+            <label for="formFile" class="uploadImageLabel">upload Profile image</label>
+             <input class="form-control mb-3" type="file" id="formFile"  name="image" (change)="handleUploadImage($event)">
+          </div>
+          <button class="btn btn-success  uploadImageButton">upload new image</button>
+    </form>
 
     <p class="text-white fs-5 mx-3 mt-2">WELCOME {{user?.name}}</p>
 
@@ -78,30 +87,37 @@ class="d-lg-block sidebar  bg-success"
 
 
  <div class="profileContent">
-    <form *ngIf="imgUploadFlag" #uploadImage="ngForm" (ngSubmit)="handleUploadImageForm()" class="col-6">
-        <div>
-            <label for="formFile" class="form-label">upload Profile image</label>
-             <input class="form-control mb-3" type="file" id="formFile"  name="image" (change)="handleUploadImage($event)">
-          </div>
-          <button class="btn btn-primary w-50">upload new image</button>
-    </form>
-    <div *ngIf="profileContentFlag">
-        <h1>my posts</h1>
-    <div *ngFor="let post of myPosts; let i = index">
-        <div>{{post?.title}}</div>
-        <div>{{post?.snippet}}</div>
-        <button class="btn btn-primary mx-1" routerLink="/editPost/{{post._id}}"> edit</button>
-    <button class="btn btn-danger"  (click)="handlePostDelete(post._id,i)">delete</button>
+
+    <div *ngIf="profileContentFlag" class="myPosts">
+        <h1 class="myPostsHeader mb-5">my posts</h1>
+        <h1 *ngIf="myPosts.length == 0" class="text-white text-center"> you have no uploaded posts yet</h1>
+    <div *ngFor="let post of myPosts; let i = index" class="row align-items-center my-2">
+        <div class="col-3">
+        <p class="text-white">TITLE : {{post?.title}}</p>
+        <p class="text-white">SNIPPET : {{post?.snippet}}</p>
+       </div>
+       <div class="col-3">
+    <button class="btn btn-primary mx-2 " routerLink="/editPost/{{post._id}}"> edit</button>
+    <button class="btn btn-danger "  (click)="handlePostDelete(post._id,i)">delete</button>
+</div>
     </div>
   </div>
-<div *ngIf="!profileContentFlag">
-    <h1>saved posts</h1>
-    <div *ngFor="let savedPost of savedPosts">
-     <h5>{{savedPost.title}}</h5>
-     <p>{{savedPost.snippet}}</p>
-     <p>written by {{savedPost.author}}</p>
-     <button class="btn btn-danger"  (click)="deleteSavedPost(savedPost._id)"> delete </button>
-     <div class="text-end fs-3" routerLink="/readPost/{{savedPost.postId}}"> Continue . . .</div>
+<div *ngIf="!profileContentFlag" class="myPosts">
+    <h1 class="myPostsHeader mb-5">saved posts</h1>
+    <h1 *ngIf="savedPosts.length == 0" class="text-white text-center"> you have no saved posts yet</h1>
+    <div *ngFor="let savedPost of savedPosts" class="row align-items-center my-2">
+        <div class="col-3">
+            <h5 class="text-white">{{savedPost.title}}</h5>
+            <p class="text-white">{{savedPost.snippet}}</p>
+            <p class="text-white">written by {{savedPost.author}}</p>
+           </div>
+     
+
+     <div class="col-3">
+        <button class="btn btn-primary mx-2 " routerLink="/readPost/{{savedPost.postId}}"> show</button>
+        <button class="btn btn-danger "  (click)="deleteSavedPost(savedPost._id)">delete</button>
+    </div>
     </div>
 </div>
 </div>
+</section>
