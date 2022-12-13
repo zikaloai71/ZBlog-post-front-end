@@ -15,12 +15,15 @@ export class HomeComponent implements OnInit {
   likedPosts: any;
   likedFlag: any;
   trends:any
+  userId:any
 
   constructor(private global: GlobalService, private auth: AuthService) {
     let token = localStorage.getItem('token')
     if(token){
       this.auth.authMe().subscribe((res) => {
         this.likedPosts = res.likedPosts;
+        this.userId= res._id
+        console.log(this.userId)
       });
     }
     
@@ -33,7 +36,9 @@ export class HomeComponent implements OnInit {
         this.postsData = data;
         this.postsData = this.postsData.data;
         this.posts = this.postsData;
-        this.trends= this.postsData;
+        this.trends= this.postsData.slice();
+        this.posts[0].likes.forEach((like:any)=>console.log(like))
+      
         this.postsData.forEach((element: any) => {
           element.flag = false;
           this.determineLikedPosts(element);
@@ -67,6 +72,7 @@ export class HomeComponent implements OnInit {
 
   likePost(id: any, i: any, ev: any) {
     this.auth.toogleLike(id).subscribe((res) => {
+      
       if (res.message == "liked") {
         this.posts[i].likes.length += 1;
         ev.target.style.color = "red";
@@ -76,7 +82,7 @@ export class HomeComponent implements OnInit {
       }
     });
   }
-
+  
   determineLikedPosts(element: any) {
     for (let i = 0; i < this.likedPosts?.length; i++) {
       if (this.likedPosts[i].postId == element._id) {
@@ -84,10 +90,10 @@ export class HomeComponent implements OnInit {
         break;
       } else {
         element.flag = false;
-        break;
       }
     }
   }
+
   trendPosts(){
     this.trends = this.trends.sort(function(a:any,b:any){
       return b.likes.length - a.likes.length
